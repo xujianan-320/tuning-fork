@@ -1,0 +1,23 @@
+function [Z,z,Y,o] = RLC(f,R,L,C1,Co)
+%UNTITLED 
+%   RLC circut f-Y,f-|Z|,f-omega respone curve
+%   R impedance
+Z_R = R;
+%   L impedance
+Z_L = 2*pi.*f.*L.*1i;
+%   C1 impedance
+Z_C1 = 1./(2*pi.*f.*C1.*1i);
+%   Co impedance
+Z_Co = 1./(2*pi.*f.*Co.*1i);
+% the impedance of RLC circut
+Z = (1./Z_Co+1./(Z_R+Z_L+Z_C1)).^-1;
+% the module of Z
+z = (imag(Z).^2+real(Z).^2).^0.5;
+% the conductance of RLC circut
+Y = 1./z;
+%   current of RLC circut
+i = 1./Z;
+%   phase difference between of V and I
+o = atand(imag(i)./real(i));
+
+end
